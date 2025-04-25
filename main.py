@@ -1,4 +1,19 @@
 import random
+
+def continuarJuego():
+    """
+    Objetivo: Permitir al usuario continuar jugando o en su defecto terminar el juego y validar su respuesta.
+    --------------------------------------
+    Parametros: Sin parametros.
+    --------------------------------------
+    Retorno: Esta funcion retorna la respuesta del usuario, siendo esta si o no
+    """
+    
+    seguirJugando = input("¿Deseas seguir jugando? 🧐: ").lower()
+    while seguirJugando != "si" and seguirJugando != "no":
+        print("Por favor ingrese una respuesta valida (si/no).")
+        seguirJugando = input("¿Deseas seguir jugando? 🧐: ").lower()
+    return seguirJugando
             
 def girarRuleta(numeros):
     """
@@ -114,4 +129,5 @@ def main():
     print(apuestaSeleccionada)
     tirada = girarRuleta(numeros)
     print(tirada)
+    continuarJuego()
 main()
