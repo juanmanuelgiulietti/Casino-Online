@@ -27,6 +27,66 @@ def girarRuleta(numeros):
     tirada = random.choice(numeros)
     print(f"Resultado de la ruleta: {tirada}")
     return tirada
+
+def crearApuesta(dinero):
+    """
+    Objetivo: Esta funcion permite al usuario ingresar la cantidad de dinero que desea apostar, y tambien valida que esa cantidad de dinero que desea apostar el jugador este dentro del valor disponible.
+    --------------------------------------
+    Parametros: Recibe como parametro el dinero disponible al iniciar el juego.
+    --------------------------------------
+    Retorno: Esta funcion retorna el dinero apostado por el jugador y el saldo disponible actualizado.
+    """
+    
+    dineroApostado = float(input("Ingrese la cantidad de dinero que desea apostar: "))
+    
+    while (dineroApostado > dinero) or (dineroApostado < 1):
+        print(f"Saldo insuficiente.")
+        dineroApostado = float(input("Ingrese la cantidad de dinero que desea apostar: "))
+    saldoActualizado = dinero - dineroApostado
+    return dineroApostado, saldoActualizado
+
+def validarApuestaSeleccionada(apuestaSeleccionada):
+    """
+    Objetivo: Esta funcion tiene como objetivo validar la apuesta seleccionada por el usuario.
+    --------------------------------------
+    Parametros: Recibe como parametro el numero de opcion de apuesta elegido por el usuario.
+    --------------------------------------
+    Retorno: Esta funcion retorna la apuesta del jugador y tambien valida que si el jugador eligio la opcion pleno, eliga un numero entre 0 y 36.
+    """
+    
+    numero = None
+    
+    if apuestaSeleccionada == 1:
+        apuesta = "Pleno"
+        numero = int(input("Ingrese el numero que desea apostar (0 - 36): "))
+        while numero < 0 or numero > 36:
+            print("Por favor ingrese una respuesta valida.")
+            numero = int(input("Ingrese el numero que desea apostar (0 - 36): "))      
+    elif apuestaSeleccionada == 2:
+        apuesta = "Rojo"
+    elif apuestaSeleccionada == 3:
+        apuesta = "Negro"
+    elif apuestaSeleccionada == 4:
+        apuesta = "Par"
+    elif apuestaSeleccionada == 5:
+        apuesta = "Impar"
+    elif apuestaSeleccionada == 6:
+        apuesta = "1 a 18"
+    elif apuestaSeleccionada == 7:
+        apuesta = "19 a 36"
+    elif apuestaSeleccionada == 8:
+        apuesta = "Columna 1"
+    elif apuestaSeleccionada == 9:
+        apuesta = "Columna 2"
+    elif apuestaSeleccionada == 10:
+        apuesta = "Columna 3"
+    elif apuestaSeleccionada == 11:
+        apuesta = "Docena 1 (1-12)"
+    elif apuestaSeleccionada == 12:
+        apuesta = "Docena 2 (13-24)"
+    else:
+        apuesta = "Docena 3 (25-36)"
+    return apuesta, numero
     
 def elegirApuesta(dinero):
     """
