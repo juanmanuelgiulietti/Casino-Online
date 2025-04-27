@@ -16,85 +16,121 @@ def continuarJuego():
     return seguirJugando
 
 def determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoActualizado):
+    """
+    Objetivo: Esta funcion tiene como objetivo comparar la apuesta del jugador con el resultado del giro de la ruleta. Haciendo asi que si el jugador gana se aumente su dinero disponible, como tambien si pierde disminuya si dinero disponible.
+    --------------------------------------
+    Parametros: Recibe como parametros la apuesta del jugador (apuestaValidada), la tirada de la ruleta (tirada), el numero elegido por el jugador si es que eligio jugar pleno (numero), el dinero apostado por el jugador (dineroApostado) y el saldo del jugador actualizado si se le resta o suma dependiendo del resultado (saldoActualizado).
+    --------------------------------------
+    Retorno: Esta funcion retorna el saldo del jugador actualizado dependiendo del resultado.
+    """
+    
+    calcularGanancias = lambda dinero, multiplicador: dinero * multiplicador
+    
+    columnaUno = [i for i in range(1, 35, 3)]
+    columnaDos = [i for i in range(2, 37, 3)]
+    columnaTres = [i for i in range(3, 38, 3)]
+
+    
     if apuestaValidada == "Pleno":
         if numero == tirada[0]:
-            ganancia = dineroApostado * 36
+            ganancia = calcularGanancias(dineroApostado, 36)
             print(f"Felicitaciones, ganaste $ {ganancia}!")
             saldoActualizado = saldoActualizado + ganancia
-            print(f"Nuevo saldo: $ {saldoActualizado}")
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
-            print(f"Perdiste, mala suerte! :(")
-            print(f"Saldo: $ {saldoActualizado}")
-        return 
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "Rojo") or (apuestaValidada == "Negro"):
         if apuestaValidada == tirada[1]:
-            ganancia = dineroApostado * 2
-            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            ganancia = calcularGanancias(dineroApostado, 2)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
-            print(f"Nuevo saldo: $ {saldoActualizado}")
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
-            print(f"Perdiste, mala suerte! :(")
-            print(f"Saldo: $ {saldoActualizado}")
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "Par") or (apuestaValidada == "Impar"):
         if apuestaValidada == tirada[2]:
-            ganancia = dineroApostado * 2
-            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            ganancia = calcularGanancias(dineroApostado, 2)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
-            print(f"Nuevo saldo: $ {saldoActualizado}")
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
-            print(f"Perdiste, mala suerte! :(")
-            print(f"Saldo: $ {saldoActualizado}")
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "1 a 18"):
         if 1 <= tirada[0] <= 18:
-            ganancia = dineroApostado * 2
-            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            ganancia = calcularGanancias(dineroApostado, 2)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
-            print(f"Nuevo saldo: $ {saldoActualizado}")
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
-            print(f"Perdiste, mala suerte! :(")
-            print(f"Saldo: $ {saldoActualizado}")
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "19 a 36"):
         if 19 <= tirada[0] <= 36:
-            ganancia = dineroApostado * 2
-            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            ganancia = calcularGanancias(dineroApostado, 2)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
-            print(f"Nuevo saldo: $ {saldoActualizado}")
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
-            print(f"Perdiste, mala suerte! :(")
-            print(f"Saldo: $ {saldoActualizado}")
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
+    elif apuestaValidada == "Columna 1":
+        if tirada[0] in columnaUno:
+            ganancia = calcularGanancias(dineroApostado, 2)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
+        else:
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
+    elif apuestaValidada == "Columna 2":
+        if tirada[0] in columnaDos:
+            ganancia = calcularGanancias(dineroApostado, 2)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
+        else:
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
+    elif apuestaValidada == "Columna 3":
+        if tirada[0] in columnaTres:
+            ganancia = calcularGanancias(dineroApostado, 2)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
+        else:
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")         
     elif (apuestaValidada == "Docena 1 (1-12)"):
         if 1 <= tirada[0] <= 12:
-            ganancia = dineroApostado * 3
-            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            ganancia = calcularGanancias(dineroApostado, 3)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
-            print(f"Nuevo saldo: $ {saldoActualizado}")
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
-            print(f"Perdiste, mala suerte! :(")
-            print(f"Saldo: $ {saldoActualizado}")
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "Docena 2 (13-24)"):
         if 13 <= tirada[0] <= 24:
-            ganancia = dineroApostado * 3
-            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            ganancia = calcularGanancias(dineroApostado, 3)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
-            print(f"Nuevo saldo: $ {saldoActualizado}")
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
-            print(f"Perdiste, mala suerte! :(")
-            print(f"Saldo: $ {saldoActualizado}")
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "Docena 3 (25-36)"):
         if 25 <= tirada[0] <= 36:
-            ganancia = dineroApostado * 3
-            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            ganancia = calcularGanancias(dineroApostado, 3)
+            print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
-            print(f"Nuevo saldo: $ {saldoActualizado}")
+            print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
-            print(f"Perdiste, mala suerte! :(")
-            print(f"Saldo: $ {saldoActualizado}")
+            print(f"😞 Perdiste, mala suerte! 😞")
+            print(f"Saldo: 💸 $ {saldoActualizado}")
     return saldoActualizado
-            
-def girarRuleta(numeros):
-    tirada = random.choice(numeros)
-    print(f"Resultado de la ruleta: {tirada}")
-    return tirada
             
 def girarRuleta(numeros):
     """
@@ -106,7 +142,9 @@ def girarRuleta(numeros):
     """
     
     tirada = random.choice(numeros)
-    print(f"Resultado de la ruleta: {tirada}")
+    resultadoAString = [str(num) for num in tirada]
+    resultadoFinal = ", ".join(resultadoAString)
+    print(f"Resultado de la ruleta: {resultadoFinal}")
     return tirada
 
 def crearApuesta(dinero):
@@ -240,16 +278,16 @@ def crearUsuario():
 
 def main():
     numeros = [
-        [0, "Verde"],
-        [1, "Rojo", "Impar"], [2, "Negro", "Par"], [3, "Rojo", "Impar"], [4, "Negro", "Par"],
-        [5, "Rojo", "Impar"], [6, "Negro", "Par"], [7, "Rojo", "Impar"], [8, "Negro", "Par"],
-        [9, "Rojo", "Impar"], [10, "Negro", "Par"], [11, "Negro", "Impar"], [12, "Rojo", "Par"],
-        [13, "Negro", "Impar"], [14, "Rojo", "Par"], [15, "Negro", "Impar"], [16, "Rojo", "Par"],
-        [17, "Negro", "Impar"], [18, "Rojo", "Par"], [19, "Rojo", "Impar"], [20, "Negro", "Par"],
-        [21, "Rojo", "Impar"], [22, "Negro", "Par"], [23, "Rojo", "Impar"], [24, "Negro", "Par"],
-        [25, "Rojo", "Impar"], [26, "Negro", "Par"], [27, "Rojo", "Impar"], [28, "Negro", "Par"],
-        [29, "Negro", "Impar"], [30, "Rojo", "Par"], [31, "Negro", "Impar"], [32, "Rojo", "Par"],
-        [33, "Negro", "Impar"], [34, "Rojo", "Par"], [35, "Negro", "Impar"], [36, "Rojo", "Par"]
+    (0, "Verde"),
+    (1, "Rojo", "Impar"), (2, "Negro", "Par"), (3, "Rojo", "Impar"), (4, "Negro", "Par"),
+    (5, "Rojo", "Impar"), (6, "Negro", "Par"), (7, "Rojo", "Impar"), (8, "Negro", "Par"),
+    (9, "Rojo", "Impar"), (10, "Negro", "Par"), (11, "Negro", "Impar"), (12, "Rojo", "Par"),
+    (13, "Negro", "Impar"), (14, "Rojo", "Par"), (15, "Negro", "Impar"), (16, "Rojo", "Par"),
+    (17, "Negro", "Impar"), (18, "Rojo", "Par"), (19, "Rojo", "Impar"), (20, "Negro", "Par"),
+    (21, "Rojo", "Impar"), (22, "Negro", "Par"), (23, "Rojo", "Impar"), (24, "Negro", "Par"),
+    (25, "Rojo", "Impar"), (26, "Negro", "Par"), (27, "Rojo", "Impar"), (28, "Negro", "Par"),
+    (29, "Negro", "Impar"), (30, "Rojo", "Par"), (31, "Negro", "Impar"), (32, "Rojo", "Par"),
+    (33, "Negro", "Impar"), (34, "Rojo", "Par"), (35, "Negro", "Impar"), (36, "Rojo", "Par")
     ]
 
     # Llamadas a las funciones
