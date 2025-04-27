@@ -14,6 +14,87 @@ def continuarJuego():
         print("Por favor ingrese una respuesta valida (si/no).")
         seguirJugando = input("¿Deseas seguir jugando? 🧐: ").lower()
     return seguirJugando
+
+def determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoActualizado):
+    if apuestaValidada == "Pleno":
+        if numero == tirada[0]:
+            ganancia = dineroApostado * 36
+            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: $ {saldoActualizado}")
+        else:
+            print(f"Perdiste, mala suerte! :(")
+            print(f"Saldo: $ {saldoActualizado}")
+        return 
+    elif (apuestaValidada == "Rojo") or (apuestaValidada == "Negro"):
+        if apuestaValidada == tirada[1]:
+            ganancia = dineroApostado * 2
+            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: $ {saldoActualizado}")
+        else:
+            print(f"Perdiste, mala suerte! :(")
+            print(f"Saldo: $ {saldoActualizado}")
+    elif (apuestaValidada == "Par") or (apuestaValidada == "Impar"):
+        if apuestaValidada == tirada[2]:
+            ganancia = dineroApostado * 2
+            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: $ {saldoActualizado}")
+        else:
+            print(f"Perdiste, mala suerte! :(")
+            print(f"Saldo: $ {saldoActualizado}")
+    elif (apuestaValidada == "1 a 18"):
+        if 1 <= tirada[0] <= 18:
+            ganancia = dineroApostado * 2
+            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: $ {saldoActualizado}")
+        else:
+            print(f"Perdiste, mala suerte! :(")
+            print(f"Saldo: $ {saldoActualizado}")
+    elif (apuestaValidada == "19 a 36"):
+        if 19 <= tirada[0] <= 36:
+            ganancia = dineroApostado * 2
+            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: $ {saldoActualizado}")
+        else:
+            print(f"Perdiste, mala suerte! :(")
+            print(f"Saldo: $ {saldoActualizado}")
+    elif (apuestaValidada == "Docena 1 (1-12)"):
+        if 1 <= tirada[0] <= 12:
+            ganancia = dineroApostado * 3
+            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: $ {saldoActualizado}")
+        else:
+            print(f"Perdiste, mala suerte! :(")
+            print(f"Saldo: $ {saldoActualizado}")
+    elif (apuestaValidada == "Docena 2 (13-24)"):
+        if 13 <= tirada[0] <= 24:
+            ganancia = dineroApostado * 3
+            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: $ {saldoActualizado}")
+        else:
+            print(f"Perdiste, mala suerte! :(")
+            print(f"Saldo: $ {saldoActualizado}")
+    elif (apuestaValidada == "Docena 3 (25-36)"):
+        if 25 <= tirada[0] <= 36:
+            ganancia = dineroApostado * 3
+            print(f"Felicitaciones, ganaste $ {ganancia}!")
+            saldoActualizado = saldoActualizado + ganancia
+            print(f"Nuevo saldo: $ {saldoActualizado}")
+        else:
+            print(f"Perdiste, mala suerte! :(")
+            print(f"Saldo: $ {saldoActualizado}")
+    return saldoActualizado
+            
+def girarRuleta(numeros):
+    tirada = random.choice(numeros)
+    print(f"Resultado de la ruleta: {tirada}")
+    return tirada
             
 def girarRuleta(numeros):
     """
@@ -158,14 +239,6 @@ def crearUsuario():
     return usuario
 
 def main():
-    """
-    Objetivo: Esta funcion permite llamar a todas las funciones utilizadas en este programa, chequear su funcionamiento y tambien utilizar datos como la lista de listas (numeros) o la variable (dinero)
-    --------------------------------------
-    Parametros: Sin parametros.
-    --------------------------------------
-    Retorno: Esta funcion retorna los resultados de todas las funciones del programa.
-    """
-
     numeros = [
         [0, "Verde"],
         [1, "Rojo", "Impar"], [2, "Negro", "Par"], [3, "Rojo", "Impar"], [4, "Negro", "Par"],
@@ -179,15 +252,38 @@ def main():
         [33, "Negro", "Impar"], [34, "Rojo", "Par"], [35, "Negro", "Impar"], [36, "Rojo", "Par"]
     ]
     
+    dinero = 2500
+
     # Llamadas a las funciones
     usuario = crearUsuario()
-    print(f"¡Hola! 👋 {usuario} . Bienvenido al juego de la ruleta. Buena suerte 🍀")
-
+    print(f"Hola!, {usuario}")
     print()
-    dinero = ingresarDinero()
     apuestaSeleccionada = elegirApuesta(dinero)
-    print(apuestaSeleccionada)
+    apuestaValidada, numero = validarApuestaSeleccionada(apuestaSeleccionada)
+    dineroApostado, saldoActualizado = crearApuesta(dinero)
+    print(f"Usted aposto: {dineroApostado}")
+    print()
+    print(f"Saldo restante: {saldoActualizado}")
     tirada = girarRuleta(numeros)
-    print(tirada)
-    continuarJuego()
+    determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoActualizado)
+    continuar = continuarJuego()
+    
+    while continuar == "si" and saldoActualizado > 0:
+        dinero = saldoActualizado
+        apuestaSeleccionada = elegirApuesta(dinero)
+        apuestaValidada, numero = validarApuestaSeleccionada(apuestaSeleccionada)
+        dineroApostado, saldoActualizado = crearApuesta(dinero)
+        print(f"Usted aposto: {dineroApostado}")
+        print()
+        print(f"Saldo restante: {saldoActualizado}")
+        tirada = girarRuleta(numeros)
+        determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoActualizado)
+        
+        if saldoActualizado <= 0:
+            print("Te quedaste sin saldo!")
+            break
+
+        continuar = continuarJuego()
+    
+    print(f"Hasta la proxima {usuario}!.")
 main()
