@@ -277,6 +277,14 @@ def crearUsuario():
     return usuario
 
 def main():
+    """
+    Objetivo: Esta funcion permite llamar a todas las funciones utilizadas en este programa, chequear su funcionamiento y tambien utilizar datos como la lista de listas (numeros) o la variable (dinero)
+    --------------------------------------
+    Parametros: Sin parametros.
+    --------------------------------------
+    Retorno: Esta funcion retorna los resultados de todas las funciones del programa.
+    """
+
     numeros = [
     (0, "Verde"),
     (1, "Rojo", "Impar"), (2, "Negro", "Par"), (3, "Rojo", "Impar"), (4, "Negro", "Par"),
@@ -289,13 +297,13 @@ def main():
     (29, "Negro", "Impar"), (30, "Rojo", "Par"), (31, "Negro", "Impar"), (32, "Rojo", "Par"),
     (33, "Negro", "Impar"), (34, "Rojo", "Par"), (35, "Negro", "Impar"), (36, "Rojo", "Par")
     ]
-
+    
     # Llamadas a las funciones
     usuario = crearUsuario()
-    print(f"Hola!, {usuario}")
-    
-    dinero = ingresarDinero()
+    print(f"¡Hola! 👋 {usuario} . Bienvenido al juego de la ruleta. Buena suerte 🍀")
+
     print()
+    dinero = ingresarDinero()
     apuestaSeleccionada = elegirApuesta(dinero)
     apuestaValidada, numero = validarApuestaSeleccionada(apuestaSeleccionada)
     dineroApostado, saldoActualizado = crearApuesta(dinero)
@@ -303,7 +311,7 @@ def main():
     print()
     print(f"Saldo restante: {saldoActualizado}")
     tirada = girarRuleta(numeros)
-    determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoActualizado)
+    saldoActualizado = determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoActualizado)
     continuar = continuarJuego()
     
     while continuar == "si" and saldoActualizado > 0:
@@ -315,13 +323,11 @@ def main():
         print()
         print(f"Saldo restante: {saldoActualizado}")
         tirada = girarRuleta(numeros)
-        determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoActualizado)
+        saldoActualizado = determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoActualizado)
         
         if saldoActualizado <= 0:
-            print("Te quedaste sin saldo!")
-            break
+            print("😔 Te quedaste sin saldo. ¡Gracias por jugar! 🙌")
+            print(f"Hasta la próxima, {usuario}! 👋")
 
         continuar = continuarJuego()
-    
-    print(f"Hasta la proxima {usuario}!.")
 main()
