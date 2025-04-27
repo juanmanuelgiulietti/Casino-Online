@@ -251,12 +251,12 @@ def main():
         [29, "Negro", "Impar"], [30, "Rojo", "Par"], [31, "Negro", "Impar"], [32, "Rojo", "Par"],
         [33, "Negro", "Impar"], [34, "Rojo", "Par"], [35, "Negro", "Impar"], [36, "Rojo", "Par"]
     ]
-    
-    dinero = 2500
 
     # Llamadas a las funciones
     usuario = crearUsuario()
     print(f"Hola!, {usuario}")
+    
+    dinero = ingresarDinero()
     print()
     apuestaSeleccionada = elegirApuesta(dinero)
     apuestaValidada, numero = validarApuestaSeleccionada(apuestaSeleccionada)
