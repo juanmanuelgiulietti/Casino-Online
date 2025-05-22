@@ -1,6 +1,38 @@
 import random
 import time
 
+def determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nombre):
+    if sumaJugador <= 21 and sumaComputadora > 21:
+        print("💥 Crupier se pasó de 21. ¡Victoria automática!")
+        dinero += dineroApostado * 2
+        print(f"🎉 ¡{nombre} gana la ronda! Te llevás ${dinero:.2f} 🪙")
+    elif sumaJugador > 21 and sumaComputadora <= 21:
+        print("❌ Crupier gana esta vez.")
+    elif sumaJugador <= 21 and sumaComputadora <= 21:
+        if sumaJugador == sumaComputadora:
+            print("🤝 ¡Empate! Recuperás tu apuesta.")
+            dinero += dineroApostado
+        elif sumaJugador > sumaComputadora:
+            dinero += dineroApostado * 2
+            print(f"🎉 ¡{nombre} gana la ronda! Te llevás ${dinero:.2f} 🪙")
+        else:
+            print("❌ Crupier gana esta vez.")
+    else:
+        print("🤝 ¡Empate! Recuperás tu apuesta.")
+    return dinero
+
+def calcularSuma(mano):
+    total = 0
+    ases = 0
+    for valor, _ in mano:
+        total += valor
+        if valor == 11:
+            ases += 1
+    while total > 21 and ases:
+        total -= 10
+        ases -= 1
+    return total
+
 def turnoDeJugador(mazo, manos, nombre):
     jugadorSePlanto = False
     sumaJugador = sum(carta[0] for carta in manos[nombre])
@@ -134,15 +166,15 @@ def main():
         (6, "6 de Picas"), (7, "7 de Picas"), (8, "8 de Picas"), (9, "9 de Picas"),
         (10, "10 de Picas"), (10, "J de Picas"), (10, "Q de Picas"), (10, "K de Picas"), (11, "A de Picas")
     ]
-
+        
     nombre = ingresarDatos()
     darBienvenida(nombre)
     dinero = dineroInicial()
 
     while dinero > 0:
-        print("\n" + "-" * 60)
+        print("" + "-" * 60)
         print(f"🃏 NUEVA RONDA - SALDO: ${dinero:.2f}")
-        print("-" * 60 + "\n")
+        print("-" * 60 + "")
 
         dinero, dineroApostado = apostarDinero(dinero)
         print(f"Dinero restante: $ {dinero:.2f}")
@@ -155,4 +187,14 @@ def main():
 
         sumaJugador = turnoDeJugador(mazo, manos, nombre)
         sumaComputadora = turnoDeComputadora(mazo, manos, nombre)
+
+        sumaJugador = calcularSuma(manos[nombre])
+        sumaComputadora = calcularSuma(manos["Computadora"])
+
+        print("🧾 RESUMEN DE LA RONDA")
+        print(f"{nombre}: {cartasJugador} (Total: {sumaJugador})")
+        cartasCrupier = ', '.join([carta[1] for carta in manos["Computadora"]])
+        print(f"Crupier: {cartasCrupier} (Total: {sumaComputadora})")
+
+        dinero = determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nombre)
 main()
