@@ -1,6 +1,76 @@
 import random
 import time
 
+def turnoDeJugador(mazo, manos, nombre):
+    jugadorSePlanto = False
+    sumaJugador = sum(carta[0] for carta in manos[nombre])
+    while not jugadorSePlanto:
+        print("\n-------------------------------------")
+        print(f"📍 Cartas de {nombre}:")
+        cartas = ', '.join([carta[1] for carta in manos[nombre]])
+        print(f"🃏 {cartas}")
+        print(f"🧮 Total actual: {sumaJugador}")
+
+        if sumaJugador == 21:
+            print("🎉 ¡Blackjack! ¡21 exacto! 🥳")
+            break
+        elif sumaJugador > 21:
+            print("💥 Te pasaste de 21... ¡perdiste esta ronda! 😞")
+            break
+        else:
+            print("👉 ¿Querés pedir otra carta o plantarte?")
+            print("1⃣  Plantarse")
+            print("2⃣  Pedir carta")
+            try:
+                respuesta = int(input("Ingrese su elección: "))
+                while respuesta not in [1, 2]:
+                    print("❌ Opción inválida. Escribí 1 o 2.")
+                    respuesta = int(input("Ingrese su elección: "))
+            except ValueError:
+                print("❌ Eso no es un número. Probá de nuevo.")
+                continue
+
+            if respuesta == 1:
+                jugadorSePlanto = True
+                print(f"🧙‍♂️  Te plantaste con un total de {sumaJugador}. Ahora juega la computadora...")
+            else:
+                nuevaCarta = mazo.pop()
+                manos[nombre].append(nuevaCarta)
+                print(f"🃏 Nueva carta: {nuevaCarta[1]}")
+                sumaJugador = sum(carta[0] for carta in manos[nombre])
+    return sumaJugador
+
+def turnoDeComputadora(mazo, manos, nombre):
+    computadoraSePlanto = False
+    print(f"Segunda carta: {manos['Computadora'][1]}")
+    sumaComputadora = sum(carta[0] for carta in manos["Computadora"])
+    while not computadoraSePlanto:
+        if sumaComputadora > 21:
+            print("💥 Crupier se pasó de 21... ¡Ganaste la ronda!")
+            break
+        elif sumaComputadora < 17:
+            nuevaCarta = mazo.pop()
+            manos["Computadora"].append(nuevaCarta)
+            print(f"🃏 Nueva carta: {nuevaCarta[1]}")
+        else:
+            computadoraSePlanto = True
+            print(f"🧙‍♂️ Crupier se planta con un total de {sumaComputadora}. Ahora juega {nombre}...")
+        sumaComputadora = sum(carta[0] for carta in manos["Computadora"])
+    return sumaComputadora
+
+def repartirCartas(mazo, nombre):
+    jugadores = [nombre, "Computadora"]
+    manos = {
+        nombre: [],
+        "Computadora": []
+    }
+    print("🃏 Repartiendo cartas...")
+    time.sleep(1)
+    for i in range(2):
+        manos[nombre].append(mazo.pop())
+        manos["Computadora"].append(mazo.pop())
+    return manos
+
 def mezclarMazo(mazo):
     print("\U0001f500 Mezclando el mazo…")
     random.shuffle(mazo)
@@ -77,4 +147,12 @@ def main():
         dinero, dineroApostado = apostarDinero(dinero)
         print(f"Dinero restante: $ {dinero:.2f}")
         mazo = mezclarMazo(mazo)
+
+        manos = repartirCartas(mazo, nombre)
+        cartasJugador = ', '.join([carta[1] for carta in manos[nombre]])
+        print(f"🃏 {nombre} recibe: {cartasJugador}")
+        print(f"🃏 Crupier muestra: {manos['Computadora'][0][1]}")
+
+        sumaJugador = turnoDeJugador(mazo, manos, nombre)
+        sumaComputadora = turnoDeComputadora(mazo, manos, nombre)
 main()
