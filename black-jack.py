@@ -33,7 +33,7 @@ def calcularSuma(mano):
         ases -= 1
     return total
 
-def turnoDeJugador(mazo, manos, nombre):
+def turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado):
     jugadorSePlanto = False
     sumaJugador = sum(carta[0] for carta in manos[nombre])
     while not jugadorSePlanto:
@@ -53,10 +53,11 @@ def turnoDeJugador(mazo, manos, nombre):
             print("👉 ¿Querés pedir otra carta o plantarte?")
             print("1⃣  Plantarse")
             print("2⃣  Pedir carta")
+            print("3⃣  Duplicar apuesta (recibís solo una carta más)")
             try:
                 respuesta = int(input("Ingrese su elección: "))
-                while respuesta not in [1, 2]:
-                    print("❌ Opción inválida. Escribí 1 o 2.")
+                while respuesta not in [1, 2, 3]:
+                    print("❌ Opción inválida. Escribí 1, 2 o 3.")
                     respuesta = int(input("Ingrese su elección: "))
             except ValueError:
                 print("❌ Eso no es un número. Probá de nuevo.")
@@ -65,12 +66,24 @@ def turnoDeJugador(mazo, manos, nombre):
             if respuesta == 1:
                 jugadorSePlanto = True
                 print(f"🧙‍♂️  Te plantaste con un total de {sumaJugador}. Ahora juega la computadora...")
-            else:
+            elif respuesta == 2:
                 nuevaCarta = mazo.pop()
                 manos[nombre].append(nuevaCarta)
                 print(f"🃏 Nueva carta: {nuevaCarta[1]}")
-                sumaJugador = sum(carta[0] for carta in manos[nombre])
-    return sumaJugador
+                sumaJugador = calcularSuma(manos[nombre])
+            else:
+                if dinero >= dineroApostado:
+                    dinero -= dineroApostado
+                    dineroApostado *= 2
+                    nuevaCarta = mazo.pop()
+                    manos[nombre].append(nuevaCarta)
+                    print(f"🃏 Nueva carta: {nuevaCarta[1]}")
+                    sumaJugador = calcularSuma(manos[nombre])
+                    print("📍 Te plantaste automáticamente tras duplicar.")
+                    jugadorSePlanto = True   
+                else:
+                    print("❌ No tenés suficiente dinero para duplicar la apuesta. Elegí otra opción.")
+    return sumaJugador, dinero, dineroApostado
 
 def turnoDeComputadora(mazo, manos, nombre):
     computadoraSePlanto = False
@@ -185,11 +198,8 @@ def main():
         print(f"🃏 {nombre} recibe: {cartasJugador}")
         print(f"🃏 Crupier muestra: {manos['Computadora'][0][1]}")
 
-        sumaJugador = turnoDeJugador(mazo, manos, nombre)
+        sumaJugador, dinero, dineroApostado = turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado)
         sumaComputadora = turnoDeComputadora(mazo, manos, nombre)
-
-        sumaJugador = calcularSuma(manos[nombre])
-        sumaComputadora = calcularSuma(manos["Computadora"])
 
         print("🧾 RESUMEN DE LA RONDA")
         print(f"{nombre}: {cartasJugador} (Total: {sumaJugador})")
