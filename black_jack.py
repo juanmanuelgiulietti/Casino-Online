@@ -207,4 +207,5 @@ def main():
         print(f"Crupier: {cartasCrupier} (Total: {sumaComputadora})")
 
         dinero = determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nombre)
-main()
+if __name__ == "__main__":
+    main()
