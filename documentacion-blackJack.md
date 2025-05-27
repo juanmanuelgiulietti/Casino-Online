@@ -15,12 +15,13 @@ Acercarte lo más posible a 21 sin pasarte y vencer al crupier. Si lográs sumar
 1. Ingresás tu nombre.
 2. Definís con cuánto dinero inicial querés jugar.
 3. En cada ronda:
+
    - Apostás una cantidad.
    - Recibís 2 cartas.
    - Podés:
      - **1️⃣ Plantarte**.
      - **2️⃣ Pedir otra carta**.
-     - **3️⃣ Duplicar la apuesta** *(solo con saldo suficiente)*.
+     - **3️⃣ Duplicar la apuesta** _(solo con saldo suficiente)_.
 
 4. El crupier jugará su turno y se determinará el ganador.
 5. El juego continúa hasta que:
@@ -39,19 +40,21 @@ Acercarte lo más posible a 21 sin pasarte y vencer al crupier. Si lográs sumar
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+## 🧪 Pruebas unitarias
 
-- **Python 3**
-- Librerías estándar:
-  - `random` – para mezclar el mazo
-  - `time` – para animar acciones con pausas leves
+Este proyecto incluye **pruebas automatizadas con `pytest`** para garantizar que las funciones principales del juego se comporten correctamente.
 
----
+### 🔍 ¿Qué se testea?
 
-## 🖥️ Cómo ejecutar
+- `calcularSuma`: suma lógica de manos, incluyendo Ases como 1 u 11.
+- `determinarGanador`: evaluación de resultados según las reglas del Blackjack.
+- `mezclarMazo` y `repartirCartas`: verificación de estructura y funcionalidad básica.
+- Simulaciones de turnos (jugador y crupier) usando mocks para entradas.
 
-1. Cloná o descargá el repositorio.
-2. Ejecutá el script en consola:
+### ▶️ ¿Cómo correr los tests?
+
+1. Asegurate de tener `pytest` instalado:
 
 ```bash
-python blackjack.py
+pip install pytest
+```
