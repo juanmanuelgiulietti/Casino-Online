@@ -21,10 +21,10 @@ def determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nomb
         print("🤝 ¡Empate! Recuperás tu apuesta.")
     return dinero
 
-def calcularSuma(mano):
+def calcularSuma(manos):
     total = 0
     ases = 0
-    for valor, _ in mano:
+    for valor, nombre in manos:
         total += valor
         if valor == 11:
             ases += 1
@@ -54,6 +54,8 @@ def turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado):
             print("1⃣  Plantarse")
             print("2⃣  Pedir carta")
             print("3⃣  Duplicar apuesta (recibís solo una carta más)")
+            print("4⃣  Dividir mano (Split)")
+            
             try:
                 respuesta = int(input("Ingrese su elección: "))
                 while respuesta not in [1, 2, 3]:
@@ -71,7 +73,7 @@ def turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado):
                 manos[nombre].append(nuevaCarta)
                 print(f"🃏 Nueva carta: {nuevaCarta[1]}")
                 sumaJugador = calcularSuma(manos[nombre])
-            else:
+            elif respuesta == 3:
                 if dinero >= dineroApostado:
                     dinero -= dineroApostado
                     dineroApostado *= 2
@@ -83,7 +85,41 @@ def turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado):
                     jugadorSePlanto = True   
                 else:
                     print("❌ No tenés suficiente dinero para duplicar la apuesta. Elegí otra opción.")
-    return sumaJugador, dinero, dineroApostado
+            else:
+                if dinero >= dineroApostado and manos[nombre][0][0] == manos[nombre][1][0]:
+                    carta1 = manos[nombre][0]
+                    carta2 = manos[nombre][1]
+
+                    dinero -= dineroApostado
+                    mano1 = [carta1, mazo.pop()]
+                    mano2 = [carta2, mazo.pop()]
+
+                    print("✂️ ¡Dividiste tu mano! Ahora jugás dos manos independientes.")
+
+                    for i, mano in enumerate([mano1, mano2], start=1):
+                        print(f"\n🎮 Jugando mano {i}:")
+                        suma = calcularSuma(mano)
+                        sePlanto = False
+                        while not sePlanto:
+                            print(f"🃏 Cartas: {', '.join([c[1] for c in mano])}")
+                            print(f"🧮 Total: {suma}")
+                            if suma >= 21:
+                                break
+                            opcion = input("¿Querés otra carta en esta mano? (s/n): ").strip().lower()
+                            if opcion == 's':
+                                nueva = mazo.pop()
+                                mano.append(nueva)
+                                print(f"🃏 Nueva carta: {nueva[1]}")
+                                suma = calcularSuma(mano)
+                            else:
+                                sePlanto = True
+                        manos[f"{nombre}_split_{i}"] = mano
+
+                    jugadorSePlanto = True
+                    sumaJugador = -1
+                else:
+                    print("❌ No tenés suficiente dinero para realizar un Split. Elegí otra opción.")
+    return sumaJugador, dinero, dineroApostado, manos
 
 def turnoDeComputadora(mazo, manos, nombre):
     computadoraSePlanto = False
@@ -198,7 +234,7 @@ def main():
         print(f"🃏 {nombre} recibe: {cartasJugador}")
         print(f"🃏 Crupier muestra: {manos['Computadora'][0][1]}")
 
-        sumaJugador, dinero, dineroApostado = turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado)
+        sumaJugador, dinero, dineroApostado, manos = turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado)
         sumaComputadora = turnoDeComputadora(mazo, manos, nombre)
 
         print("🧾 RESUMEN DE LA RONDA")
@@ -207,5 +243,16 @@ def main():
         print(f"Crupier: {cartasCrupier} (Total: {sumaComputadora})")
 
         dinero = determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nombre)
+        print()
+
+        print("\n" + "=" * 50 + "\n")
+
+        if dinero > 0:
+            continuar = input("¿Querés jugar otra ronda? (S/N): ").strip().lower()
+            if continuar != "s":
+                print(f"\nGracias por jugar, {nombre}. Terminaste con ${dinero:.2f} ¡Hasta la próxima!")
+                break
+        else:
+            print(f"\nTe quedaste sin dinero, {nombre}. ¡Gracias por jugar! 💸")
 if __name__ == "__main__":
     main()
