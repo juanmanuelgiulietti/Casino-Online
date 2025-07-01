@@ -2,6 +2,19 @@ import random
 import time
 
 def determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nombre):
+    """
+    Determina el ganador de la ronda y ajusta el dinero del jugador según el resultado.
+
+    Parametros:
+        sumaJugador (int): Puntos del jugador.
+        sumaComputadora (int): Puntos del crupier.
+        dinero (float): Dinero actual del jugador.
+        dineroApostado (float): Dinero apostado en la ronda.
+        nombre (str): Nombre del jugador.
+
+    Retorna:
+        float: Dinero actualizado del jugador.
+    """ 
     if sumaJugador <= 21 and sumaComputadora > 21:
         print("💥 Crupier se pasó de 21. ¡Victoria automática!")
         dinero += dineroApostado * 2
@@ -22,6 +35,15 @@ def determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nomb
     return dinero
 
 def calcularSuma(manos):
+    """
+    Calcula la suma total de una mano considerando el valor flexible de los Ases.
+
+    Parametros:
+        manos (list): Lista de cartas (tuplas de valor y nombre).
+
+    Retorna:
+        int: Suma total ajustada de la mano.
+    """
     total = 0
     ases = 0
     for valor, nombre in manos:
@@ -34,6 +56,19 @@ def calcularSuma(manos):
     return total
 
 def turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado):
+    """
+    Gestiona el turno del jugador: pedir, plantarse, duplicar o dividir mano.
+
+    Parametros:
+        mazo (list): Mazo de cartas.
+        manos (dict): Manos de jugador y crupier.
+        nombre (str): Nombre del jugador.
+        dinero (float): Dinero actual del jugador.
+        dineroApostado (float): Apuesta actual.
+
+    Retorna:
+        tuple: Suma final del jugador, dinero actualizado, apuesta actual, manos actualizadas.
+    """
     jugadorSePlanto = False
     sumaJugador = sum(carta[0] for carta in manos[nombre])
     while not jugadorSePlanto:
@@ -122,6 +157,17 @@ def turnoDeJugador(mazo, manos, nombre, dinero, dineroApostado):
     return sumaJugador, dinero, dineroApostado, manos
 
 def turnoDeComputadora(mazo, manos, nombre):
+    """
+    Ejecuta el turno de la computadora (crupier) según reglas del Blackjack.
+
+    Parametros:
+        mazo (list): Mazo de cartas.
+        manos (dict): Manos de ambos jugadores.
+        nombre (str): Nombre del jugador humano (solo para mensajes).
+
+    Retorna:
+        int: Suma final de la computadora.
+    """
     computadoraSePlanto = False
     print(f"Segunda carta: {manos['Computadora'][1]}")
     sumaComputadora = sum(carta[0] for carta in manos["Computadora"])
@@ -140,6 +186,16 @@ def turnoDeComputadora(mazo, manos, nombre):
     return sumaComputadora
 
 def repartirCartas(mazo, nombre):
+    """
+    Reparte dos cartas al jugador y dos al crupier.
+
+    Parametros:
+        mazo (list): Mazo de cartas.
+        nombre (str): Nombre del jugador.
+
+    Retorna:
+        dict: Diccionario con las manos iniciales.
+    """
     jugadores = [nombre, "Computadora"]
     manos = {
         nombre: [],
@@ -153,6 +209,15 @@ def repartirCartas(mazo, nombre):
     return manos
 
 def mezclarMazo(mazo):
+    """
+    Mezcla aleatoriamente el mazo de cartas.
+
+    Parametros:
+        mazo (list): Lista de cartas del mazo.
+
+    Retorna:
+        list: Mazo mezclado.
+    """
     print("\U0001f500 Mezclando el mazo…")
     random.shuffle(mazo)
     time.sleep(1)
@@ -160,6 +225,12 @@ def mezclarMazo(mazo):
     return mazo
 
 def ingresarDatos():
+    """
+    Pide y valida el nombre del jugador.
+
+    Retorna:
+        str: Nombre validado.
+    """
     nombre = input("Ingresa tu nombre: ").strip()
     while not nombre or not nombre.isalpha():
         print("❌ El nombre no puede estar vacío y solo debe contener letras.")
@@ -167,12 +238,24 @@ def ingresarDatos():
     return nombre.capitalize()
 
 def darBienvenida(nombre):
+    """
+    Muestra un mensaje de bienvenida al jugador.
+
+    Parametros:
+        nombre (str): Nombre del jugador.
+    """
     print(f"🎉 ¡Bienvenido/a al Blackjack, {nombre}! 🃏")
     print("Prepárate para desafiar al crupier y acercarte lo más posible a 21 sin pasarte.")
     print("💵 ¡Si lográs vencer a la casa, te llevás la gloria (y las fichas)! 🪙")
     print("-----------------------------------------------------------")
 
 def dineroInicial():
+    """
+    Pide y valida el dinero inicial con el que desea jugar el jugador.
+
+    Retorna:
+        float: Dinero inicial válido.
+    """
     while True:
         dinero = input("💰 Ingresa la cantidad de dinero con la que deseas iniciar: ").strip()
         try:
@@ -186,6 +269,15 @@ def dineroInicial():
             print("❌ Valor inválido. Ingresá solo números, sin letras ni símbolos. 💸")
 
 def apostarDinero(dinero):
+    """
+    Pide al jugador cuánto desea apostar en la ronda.
+
+    Parametros:
+        dinero (float): Dinero disponible del jugador.
+
+    Retorna:
+        tupla: Dinero restante y dinero apostado.
+    """
     while True:
         print(f"Tienes $ {dinero} disponibles.")
         dineroApostado = input("🎰 ¿Cuánto querés apostar esta ronda?: ").strip()
@@ -201,6 +293,9 @@ def apostarDinero(dinero):
             print("❌ Valor inválido. Ingresá solo números, sin letras ni símbolos. 💸")
 
 def main():
+    """
+    Función principal que ejecuta el juego completo de Blackjack.
+    """
     mazo = [
         (2, "2 de Corazones"), (3, "3 de Corazones"), (4, "4 de Corazones"), (5, "5 de Corazones"),
         (6, "6 de Corazones"), (7, "7 de Corazones"), (8, "8 de Corazones"), (9, "9 de Corazones"),
