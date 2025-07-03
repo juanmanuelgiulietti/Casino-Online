@@ -333,4 +333,18 @@ def main():
             print(f"Hasta la próxima, {usuario}! 👋")
 
         continuar = continuarJuego()
+
+
+ def validarEdad():
+    while True:
+        try:
+            edad = int(input("Ingrese su edad: "))
+            if edad <= 0:
+                print("❌ Edad inválida. La edad debe ser mayor a 0. 🎰")
+            elif edad < 18:
+                print("🚫 Lo sentimos. Debés tener al menos 18 años para ingresar al casino. 🎰")
+            else:
+                return edad
+        except ValueError:
+            print("❌ Entrada inválida. Ingresá un número válido para la edad. 🔢")
 main()

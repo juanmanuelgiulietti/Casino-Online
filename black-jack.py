@@ -77,4 +77,8 @@ def main():
         dinero, dineroApostado = apostarDinero(dinero)
         print(f"Dinero restante: $ {dinero:.2f}")
         mazo = mezclarMazo(mazo)
+<<<<<<< HEAD
 main()
+=======
+main()
+>>>>>>> 4eb7d1937e407b10c343d9f1bbb3d7a91aa2d43a
