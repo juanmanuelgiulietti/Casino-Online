@@ -1,4 +1,35 @@
 import random
+from datetime import datetime
+
+def registrar_historial(juego, resultado, saldoActualizado):
+    """
+    Registra en un archivo de texto el resultado de una partida en el casino.
+
+    Parámetros:
+    ----------
+    juego : str
+        Nombre del juego al que el usuario jugó (por ejemplo, "Blackjack", "Slots", "Ruleta").
+    
+    resultado : str
+        Resultado de la partida en formato texto (por ejemplo, "+ $200", "- $100", "Empate").
+    
+    saldoActualizado : float
+        Saldo actual del jugador luego de la partida.
+
+    Comportamiento:
+    --------------
+    - Abre (o crea si no existe) el archivo 'historial_casino.txt'.
+    - Escribe una línea con la fecha y hora actual, el nombre del juego, el resultado y el saldo final.
+    - Cada llamada a la función agrega una nueva línea al final del archivo, sin borrar las anteriores.
+
+    Ejemplo de línea en el archivo:
+    [04/07/2025 12:00] Juego: Slots | Resultado: + $300.00 | Saldo: $1500.00
+    """
+    fecha_hora = datetime.now().strftime("%d/%m/%Y %H:%M")
+    linea = f"[{fecha_hora}] Juego: {juego} | Resultado: {resultado} | Saldo: ${saldoActualizado:.2f}\n"
+    
+    with open("historial_casino.txt", "a", encoding="utf-8") as archivo:
+        archivo.write(linea)
 
 def continuarJuego():
     """
@@ -34,102 +65,126 @@ def determinarResultado(apuestaValidada, tirada, numero, dineroApostado, saldoAc
     if apuestaValidada == "Pleno":
         if numero == tirada[0]:
             ganancia = calcularGanancias(dineroApostado, 36)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"Felicitaciones, ganaste $ {ganancia}!")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "Rojo") or (apuestaValidada == "Negro"):
         if apuestaValidada == tirada[1]:
             ganancia = calcularGanancias(dineroApostado, 2)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "Par") or (apuestaValidada == "Impar"):
         if apuestaValidada == tirada[2]:
             ganancia = calcularGanancias(dineroApostado, 2)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "1 a 18"):
         if 1 <= tirada[0] <= 18:
             ganancia = calcularGanancias(dineroApostado, 2)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "19 a 36"):
         if 19 <= tirada[0] <= 36:
             ganancia = calcularGanancias(dineroApostado, 2)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif apuestaValidada == "Columna 1":
         if tirada[0] in columnaUno:
             ganancia = calcularGanancias(dineroApostado, 2)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif apuestaValidada == "Columna 2":
         if tirada[0] in columnaDos:
             ganancia = calcularGanancias(dineroApostado, 2)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif apuestaValidada == "Columna 3":
         if tirada[0] in columnaTres:
             ganancia = calcularGanancias(dineroApostado, 2)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")         
     elif (apuestaValidada == "Docena 1 (1-12)"):
         if 1 <= tirada[0] <= 12:
             ganancia = calcularGanancias(dineroApostado, 3)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "Docena 2 (13-24)"):
         if 13 <= tirada[0] <= 24:
             ganancia = calcularGanancias(dineroApostado, 3)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
     elif (apuestaValidada == "Docena 3 (25-36)"):
         if 25 <= tirada[0] <= 36:
             ganancia = calcularGanancias(dineroApostado, 3)
+            resultado = f"+ ${ganancia:.2f}"
             print(f"🎉 ¡Felicitaciones, ganaste $ {ganancia}! 🎉")
             saldoActualizado = saldoActualizado + ganancia
             print(f"Nuevo saldo: 💰 $ {saldoActualizado}")
         else:
+            resultado = f"- ${dineroApostado:.2f}"
             print(f"😞 Perdiste, mala suerte! 😞")
             print(f"Saldo: 💸 $ {saldoActualizado}")
+            
+    registrar_historial("Ruleta", resultado, saldoActualizado)
     return saldoActualizado
             
 def girarRuleta(numeros):
