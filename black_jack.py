@@ -1,16 +1,40 @@
 import random
 import time
+from datetime import datetime
+
+def registrar_historial(juego, resultado, dinero):
+    """
+    Registra en un archivo de texto el resultado de una partida en el casino.
+
+    Parámetros:
+    ----------
+    juego : str
+        Nombre del juego al que el usuario jugó (por ejemplo, "Blackjack", "Slots", "Ruleta").
+    
+    resultado : str
+        Resultado de la partida en formato texto (por ejemplo, "+ $200", "- $100", "Empate").
+    
+    saldoActualizado : float
+        Saldo actual del jugador luego de la partida.
+
+    Comportamiento:
+    --------------
+    - Abre (o crea si no existe) el archivo 'historial_casino.txt'.
+    - Escribe una línea con la fecha y hora actual, el nombre del juego, el resultado y el saldo final.
+    - Cada llamada a la función agrega una nueva línea al final del archivo, sin borrar las anteriores.
+
+    Ejemplo de línea en el archivo:
+    [04/07/2025 12:00] Juego: Slots | Resultado: + $300.00 | Saldo: $1500.00
+    """
+    fecha_hora = datetime.now().strftime("%d/%m/%Y %H:%M")
+    linea = f"[{fecha_hora}] Juego: {juego} | Resultado: {resultado} | Saldo: ${dinero:.2f}\n"
+    
+    with open("historial_casino.txt", "a", encoding="utf-8") as archivo:
+        archivo.write(linea)
 
 def determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nombre):
     """
     Determina el ganador de la ronda y ajusta el dinero del jugador según el resultado.
-
-    Parametros:
-        sumaJugador (int): Puntos del jugador.
-        sumaComputadora (int): Puntos del crupier.
-        dinero (float): Dinero actual del jugador.
-        dineroApostado (float): Dinero apostado en la ronda.
-        nombre (str): Nombre del jugador.
 
     Retorna:
         float: Dinero actualizado del jugador.
@@ -18,20 +42,31 @@ def determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nomb
     if sumaJugador <= 21 and sumaComputadora > 21:
         print("💥 Crupier se pasó de 21. ¡Victoria automática!")
         dinero += dineroApostado * 2
-        print(f"🎉 ¡{nombre} gana la ronda! Te llevás ${dinero:.2f} 🪙")
+        print(f"🎉 ¡{nombre} gana la ronda! Te llevás ${dineroApostado * 2:.2f} 🪙")
+        resultado = f"+ ${dineroApostado * 2:.2f}"
+        
     elif sumaJugador > 21 and sumaComputadora <= 21:
         print("❌ Crupier gana esta vez.")
+        resultado = f"- ${dineroApostado:.2f}"
+        
     elif sumaJugador <= 21 and sumaComputadora <= 21:
         if sumaJugador == sumaComputadora:
             print("🤝 ¡Empate! Recuperás tu apuesta.")
             dinero += dineroApostado
+            resultado = "Empate"
         elif sumaJugador > sumaComputadora:
             dinero += dineroApostado * 2
-            print(f"🎉 ¡{nombre} gana la ronda! Te llevás ${dinero:.2f} 🪙")
+            print(f"🎉 ¡{nombre} gana la ronda! Te llevás ${dineroApostado * 2:.2f} 🪙")
+            resultado = f"+ ${dineroApostado * 2:.2f}"
         else:
             print("❌ Crupier gana esta vez.")
+            resultado = f"- ${dineroApostado:.2f}"
     else:
         print("🤝 ¡Empate! Recuperás tu apuesta.")
+        dinero += dineroApostado
+        resultado = "Empate"
+        
+    registrar_historial("Black Jack", resultado, dinero)
     return dinero
 
 def calcularSuma(manos):
