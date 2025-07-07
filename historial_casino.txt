@@ -11,3 +11,4 @@
 [07/07/2025 13:13] Juego: Ruleta | Resultado: - $100.00 | Saldo: $500.00
 [07/07/2025 13:14] Juego: Black Jack | Resultado: + $20.00 | Saldo: $120.00
 [07/07/2025 13:14] Juego: Black Jack | Resultado: Empate | Saldo: $110.00
+[07/07/2025 17:07] Juego: Slots | Resultado: +$24000.00 | Saldo: $26000.00

@@ -25,7 +25,7 @@ def mostrarMenu():
         try:
             respuesta = int(input("Indica a que juego desea jugar: "))
 
-            while respuesta not in [1, 2, 0]:
+            while respuesta not in [1, 2, 3, 0]:
                  print("❌ Opción inválida. Por favor ingresá 1, 2 o 0 según el juego que quieras jugar o si querés salir. 🎲")
                  respuesta = int(input("Indica a que juego desea jugar: "))
             if respuesta == 1:
