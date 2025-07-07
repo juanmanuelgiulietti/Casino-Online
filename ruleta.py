@@ -388,4 +388,5 @@ def main():
             print(f"Hasta la próxima, {usuario}! 👋")
 
         continuar = continuarJuego()
-main()
+if __name__ == "__main__":
+    main()
