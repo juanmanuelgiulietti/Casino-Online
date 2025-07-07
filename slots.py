@@ -45,7 +45,6 @@ def continuarJuego():
         continuar = input("🔁 ¿Querés jugar otra ronda? (s/n): ").strip().lower()
     return continuar
 
-
 def determinarResultado(pantalla, dinero, dineroApostado):
     """
     Evalúa la pantalla generada para determinar si hay combinaciones ganadoras 

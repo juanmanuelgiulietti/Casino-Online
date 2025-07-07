@@ -31,6 +31,19 @@ def registrar_historial(juego, resultado, dinero):
     
     with open("historial_casino.txt", "a", encoding="utf-8") as archivo:
         archivo.write(linea)
+        
+def continuarJuego():
+    """
+    Pregunta al usuario si desea continuar jugando otra ronda.
+
+    Retorna:
+        str: 's' si desea continuar, 'n' si desea finalizar.
+    """
+    continuar = input("\n🔁 ¿Querés jugar otra ronda? (s/n): ").strip().lower()
+    while continuar not in ["s", "n"]:
+        print("❌ Respuesta inválida. Ingresá 's' para sí o 'n' para no.")
+        continuar = input("🔁 ¿Querés jugar otra ronda? (s/n): ").strip().lower()
+    return continuar
 
 def determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nombre):
     """
@@ -374,19 +387,14 @@ def main():
 
         dinero = determinarGanador(sumaJugador, sumaComputadora, dinero, dineroApostado, nombre)
         print()
-
+        
+        if continuarJuego() == "n":
+            print(f"\n🎩 Gracias por jugar, {nombre}. Terminaste con ${dinero:.2f}. ¡Hasta la próxima! 🍒")
+            break
+            
         print("\n" + "=" * 50 + "\n")
 
-        if dinero > 0:
-            continuar = input("¿Querés jugar otra ronda? (S/N): ").strip().lower()
-            if continuar not in ["s", "n"]:
-                print("❌ Respuesta inválida. Por favor ingresá 's' para sí o 'n' para no. ✋")
-                continuar = input("¿Querés jugar otra ronda? (S/N): ").strip().lower()
-            elif continuar == "n":
-                print(f"\nGracias por jugar, {nombre}. Terminaste con ${dinero:.2f} ¡Hasta la próxima!")
-                break
-        else:
-            print(f"\nTe quedaste sin dinero, {nombre}. ¡Gracias por jugar! 💸")
+        
 
 if __name__ == "__main__":
     main()

@@ -1,14 +1,8 @@
-[04/07/2025 10:17] Juego: Ruleta | Resultado: - $2500.00 | Saldo: $17500.00
-[04/07/2025 10:33] Juego: Black Jack | Resultado: + $2000.00 | Saldo: $6000.00
-[07/07/2025 12:01] Juego: Ruleta | Resultado: + $4000.00 | Saldo: $5000.00
-[07/07/2025 13:10] Juego: Slots | Resultado: +$1000.00 | Saldo: $2000.00
-[07/07/2025 13:10] Juego: Slots | Resultado: -$0.00 | Saldo: $1000.00
-[07/07/2025 13:11] Juego: Slots | Resultado: +$1000.00 | Saldo: $2000.00
-[07/07/2025 13:11] Juego: Slots | Resultado: -$0.00 | Saldo: $1000.00
-[07/07/2025 13:13] Juego: Ruleta | Resultado: + $3600.00 | Saldo: $4100.00
-[07/07/2025 13:13] Juego: Ruleta | Resultado: - $100.00 | Saldo: $500.00
-[07/07/2025 13:13] Juego: Ruleta | Resultado: + $200.00 | Saldo: $700.00
-[07/07/2025 13:13] Juego: Ruleta | Resultado: - $100.00 | Saldo: $500.00
-[07/07/2025 13:14] Juego: Black Jack | Resultado: + $20.00 | Saldo: $120.00
-[07/07/2025 13:14] Juego: Black Jack | Resultado: Empate | Saldo: $110.00
-[07/07/2025 17:07] Juego: Slots | Resultado: +$24000.00 | Saldo: $26000.00
+[07/07/2025 19:24] Juego: Ruleta | Resultado: + $1000.00 | Saldo: $2500.00
+[07/07/2025 19:24] Juego: Ruleta | Resultado: - $1000.00 | Saldo: $1500.00
+[07/07/2025 19:24] Juego: Black Jack | Resultado: + $200.00 | Saldo: $400.00
+[07/07/2025 19:26] Juego: Black Jack | Resultado: - $200.00 | Saldo: $100.00
+[07/07/2025 19:26] Juego: Slots | Resultado: +$6000.00 | Saldo: $7000.00
+[07/07/2025 19:29] Juego: Ruleta | Resultado: + $400.00 | Saldo: $3200.00
+[07/07/2025 19:30] Juego: Black Jack | Resultado: + $2000.00 | Saldo: $6000.00
+[07/07/2025 19:30] Juego: Slots | Resultado: -$0.00 | Saldo: $1000.00

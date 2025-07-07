@@ -320,7 +320,6 @@ def ingresarDinero():
         except ValueError:
             print("Entrada inválida. Por favor ingrese un número.")
 
-
 def crearUsuario():
     """
     Objetivo: Esta funcion permite al usuario ingresar su nombre e iniciar el juego y a su vez verifica que la respuesta sea correcta. 
