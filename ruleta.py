@@ -305,15 +305,21 @@ def ingresarDinero():
     """
     Objetivo: Permite al usuario definir con cuánto dinero desea comenzar el juego.
     --------------------------------------
-    Parametros: Sin parametros.
+    Parámetros: Sin parámetros.
     --------------------------------------
     Retorno: Retorna el saldo inicial elegido por el usuario (float).
     """
-    dinero = float(input("Ingrese la cantidad de dinero con la que desea arrancar a jugar: "))
-    while dinero <= 0:
-        print("Por favor ingrese una respuesta valida (mayor a 0).")
-        dinero = float(input("Ingrese la cantidad de dinero con la que desea arrancar a jugar: "))
-    return dinero
+    while True:
+        dinero = input("Ingrese la cantidad de dinero con la que desea arrancar a jugar: ")
+        try:
+            dinero = float(dinero)
+            if dinero > 0:
+                return dinero
+            else:
+                print("Por favor ingrese un número mayor a 0.")
+        except ValueError:
+            print("Entrada inválida. Por favor ingrese un número.")
+
 
 def crearUsuario():
     """
