@@ -1,10 +1,24 @@
 import os
 
+def validarEdad():
+    while True:
+        try:
+            edad = int(input("Ingrese su edad: "))
+            if edad <= 0:
+                print("❌ Edad inválida. La edad debe ser mayor a 0. 🎰")
+            elif edad < 18:
+                print("🚫 Lo sentimos. Debés tener al menos 18 años para ingresar al casino. 🎰")
+            else:
+                return edad
+        except ValueError:
+            print("❌ Entrada inválida. Ingresá un número válido para la edad. 🔢")
+
 def mostrarMenu():
     while True:
         print(f"Opciones de juegos: ")
         print(f"1. Ruleta")
         print(f"2. Black Jack")
+        print(f"3. Slots")
     
         print(f"0. Salir")
         
@@ -18,6 +32,8 @@ def mostrarMenu():
                 os.system("python ruleta.py")
             elif respuesta == 2:
                 os.system("python black_jack.py")
+            elif respuesta == 3:
+                os.system("python slots.py")
             else:
                 print("\n🎩 Gracias por visitar el Casino Online de Juan 🎰")
                 print("¡Esperamos verte pronto de nuevo! 🃏🎲")
@@ -27,5 +43,6 @@ def mostrarMenu():
             print(f"Error en la respuesta: {e}")
 
 def main():
+    validarEdad()
     mostrarMenu()
 main()

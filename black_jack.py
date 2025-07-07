@@ -379,10 +379,14 @@ def main():
 
         if dinero > 0:
             continuar = input("¿Querés jugar otra ronda? (S/N): ").strip().lower()
-            if continuar != "s":
+            if continuar not in ["s", "n"]:
+                print("❌ Respuesta inválida. Por favor ingresá 's' para sí o 'n' para no. ✋")
+                continuar = input("¿Querés jugar otra ronda? (S/N): ").strip().lower()
+            elif continuar == "n":
                 print(f"\nGracias por jugar, {nombre}. Terminaste con ${dinero:.2f} ¡Hasta la próxima!")
                 break
         else:
             print(f"\nTe quedaste sin dinero, {nombre}. ¡Gracias por jugar! 💸")
+
 if __name__ == "__main__":
     main()
